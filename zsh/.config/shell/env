@@ -1,0 +1,80 @@
+#!/bin/sh
+
+export EDITOR="vim"
+export TERMINAL="st"
+export BROWSER="firefox"
+
+# XDG
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+
+export XDG_DESKTOP_DIR="$HOME"
+
+export XDG_DATA_DIR="$HOME/data"
+export XDG_DOWNLOAD_DIR="$HOME/data/unsorted"
+export XDG_TEMPLATES_DIR="$HOME/data/templates"
+export XDG_PUBLICSHARE_DIR="$HOME/data/shared"
+export XDG_DOCUMENTS_DIR="$HOME/data/docs"
+
+export XDG_MEDIA_DIR="$HOME/media"
+export XDG_MUSIC_DIR="$HOME/media/music"
+export XDG_PICTURES_DIR="$HOME/media/pics"
+export XDG_VIDEOS_DIR="$HOME/media/vids"
+
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+
+export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch"
+
+export PASSWORD_STORE_DIR="$XDG_DATA_DIR/pass"
+
+# $PATH population
+export GOPATH="$XDG_DATA_HOME"/go
+export PATH="$PATH:$GOPATH/bin"
+export PATH="$PATH:$HOME/.yarn/bin"
+export PATH="$PATH:/usr/sbin"
+
+# Adds `~/.local/bin` to $PATH
+local bin_dirs=$(find ${HOME}/.local/bin -type d -printf :%p)
+export PATH="${PATH}${bin_dirs}"
+
+# Doom Emacs
+export DOOMDIR="$XDG_CONFIG_HOME/doom"
+DOOMBIN="$XDG_CONFIG_HOME/emacs/bin"
+export PATH="$PATH:$DOOMBIN"
+
+# $HOME cleanup
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
+export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
+export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
+
+export XINITRC="${XDG_CONFIG_HOME:-$HOME/.config}/x11/xinitrc"
+export INPUTRC="${XDG_CONFIG_HOME:-$HOME/.config}/shell/inputrc"
+export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+
+# TODO: to be replaced by /etc/profile.d/env.sh?
+# NodeJS
+NODEJS_VERSION=v16.15.1
+NODEJS_DISTRO=linux-x64
+export PATH=/usr/local/lib/nodejs/node-$NODEJS_VERSION-$NODEJS_DISTRO/bin:$PATH
+
+# Rust
+export PATH="$PATH:$HOME/.cargo/bin"
+
+# Job
+export XILINX_SDK_VER=2020.2
+export XILINX_SDK="$HOME/job/tools/Xilinx/$XILINX_SDK_VER/Vitis/$XILINX_SDK_VER"
+
+export COMMONPOCKET_PATH="$HOME/job/stc/repo/commonpocket"
+export ZYNQ_REPOSITORY_PATH="$HOME/job/stc/repo/system_zynq"
+
+# Requires FZF and ripgrep
+export FZF_DEFAULT_COMMAND="rgf"
+export STARDICT_DATA_DIR="$XDG_DATA_HOME"
+
+# Fuck Next.js
+export NEXT_TELEMETRY_DISABLED=1
+
