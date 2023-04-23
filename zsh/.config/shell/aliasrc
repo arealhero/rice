@@ -26,7 +26,10 @@ fi
 
 # Verbosity and interactivity.
 alias \
-	bc="bc -ql"
+	bc="bc -ql" \
+  mv="mv -iv" \
+  rm="rm -iv" \
+  cp="cp -iv"
 
 # Colorize commands when possible.
 alias \
