@@ -1,0 +1,26 @@
+#!/bin/sh
+
+xset r rate 180 55 &
+xset s 0 0 &
+xset dpms 0 0 0 &
+# xset s 300 300 &
+# xset dpms 300 300 300 &
+
+# mpd &
+dunst &
+hsetroot -fill ~/data/pics/mountain-deers.jpg &
+# hsetroot -solid black &
+xcompmgr &
+# redshift &
+dwmblocks &
+# wal -R &
+
+unclutter --timeout 2 &
+
+# restore-colorscheme
+
+# # Fixes slow Telegram startup
+# dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
+
+exec dwm
+
