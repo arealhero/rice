@@ -1,0 +1,11 @@
+# zsh
+\.zcompdump
+
+# Emacs packages
+eln-cache/
+elpa/
+transient/
+
+# org-mode & org-roam
+org-roam.db
+
