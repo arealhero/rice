@@ -9,3 +9,6 @@ transient/
 # org-mode & org-roam
 org-roam.db
 
+# mpd
+mpd/.config/mpd/pid
+
