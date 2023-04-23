@@ -1,0 +1,22 @@
+# Administration
+app-admin/doas persist
+
+# firefox-bin
+>=media-libs/libvpx-1.12.0-r1 postproc
+
+# Media
+>=media-plugins/alsa-plugins-1.2.7.1-r1 pulseaudio
+
+# ncmpcpp
+>=dev-libs/boost-1.81.0-r1 icu
+
+# xorg
+>=sys-auth/pambase-20220214 elogind
+
+# Telegram
+>=media-video/ffmpeg-4.4.3 opus vpx
+>=sys-libs/zlib-1.2.13-r1 minizip
+>=dev-qt/qtgui-5.15.8-r4 dbus jpeg
+>=dev-qt/qtcore-5.15.8-r4 icu
+>=app-text/xmlto-0.0.28-r10 text
+

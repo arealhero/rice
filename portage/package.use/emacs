@@ -1,0 +1,5 @@
+>=app-emacs/emacs-common-1.8 gui
+>=app-editors/emacs-28.2-r6 gui json
+
+>=sci-mathematics/octave-7.3.0-r2 -imagemagick
+
