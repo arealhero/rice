@@ -1,3 +1,6 @@
 [submodule "zsh/.local/share/zsh/plugins/fast-syntax-highlighting"]
 	path = zsh/.local/share/zsh/plugins/fast-syntax-highlighting
 	url = https://github.com/zdharma-continuum/fast-syntax-highlighting
+[submodule "neovim/.local/share/nvim/site/pack/packer/start/packer.nvim"]
+	path = neovim/.local/share/nvim/site/pack/packer/start/packer.nvim
+	url = https://github.com/wbthomason/packer.nvim

@@ -8,25 +8,26 @@ return require('packer').startup(function(use)
     requires = { { 'nvim-lua/plenary.nvim' } }
   }
 
-  use 'mattn/emmet-vim'
+  -- use 'mattn/emmet-vim'
   use {
-    "windwp/nvim-autopairs",
-    config = function() require("nvim-autopairs").setup {} end
+    'windwp/nvim-autopairs',
+    config = function() require('nvim-autopairs').setup {} end
   }
 
   use 'jvirtanen/vim-octave'
 
-  use({
-    'rose-pine/neovim',
-    as = 'rose-pine',
-    -- config = function()
-    --   require("rose-pine").setup()
-    --   vim.cmd('colorscheme rose-pine')
-    -- end
-  })
+  -- use({
+  --   'rose-pine/neovim',
+  --   as = 'rose-pine',
+  --   -- config = function()
+  --   --   require('rose-pine').setup()
+  --   --   vim.cmd('colorscheme rose-pine')
+  --   -- end
+  -- })
 
-  use "ellisonleao/gruvbox.nvim"
+  use 'ellisonleao/gruvbox.nvim'
 
+  use 'neovim/nvim-lspconfig'
   -- use {
   --   'VonHeikemen/lsp-zero.nvim',
   --   branch = 'v1.x',

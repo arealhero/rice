@@ -5,12 +5,20 @@
 eln-cache/
 elpa/
 transient/
-emacs/.config/emacs/.org-id-locations
-emacs/.config/emacs/bookmarks
+emacs/\.config/emacs/\.org-id-locations
+emacs/\.config/emacs/bookmarks
 
 # org-mode & org-roam
 org-roam.db
 
 # mpd
-mpd/.config/mpd/pid
+mpd/\.config/mpd/pid
+
+# neovim
+neovim/\.config/nvim/plugin/
+neovim/\.local/share/nvim/*
+!neovim/\.local/share/nvim/site/
+
+neovim/\.local/share/nvim/site/pack/packer/start/*
+!neovim/\.local/share/nvim/site/pack/packer/start/packer\.nvim/
 
