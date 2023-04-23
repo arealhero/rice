@@ -1,0 +1,3 @@
+#+title: Notemacs
+
+Сборка emacs исключительно для [[https://orgmode.org/][org-mode]], [[https://www.orgroam.com/][org-roam]] и проч.

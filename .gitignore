@@ -5,6 +5,8 @@
 eln-cache/
 elpa/
 transient/
+emacs/.config/emacs/.org-id-locations
+emacs/.config/emacs/bookmarks
 
 # org-mode & org-roam
 org-roam.db

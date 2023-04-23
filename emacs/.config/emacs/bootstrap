@@ -1,0 +1,101 @@
+#!/bin/sh
+
+set -e
+
+die()
+{
+  echo "[FATAL] $1"
+  exit 1
+}
+
+USAGE="usage: bootstrap [-efh]\n\t-e\tbuild emacs\n\t-f\tforce action\n\t-p\treinstall packages\n\t-h\tprint help"
+
+while getopts efph flag
+do
+  case $flag in
+    f) force=1 ;;
+    e) build_emacs=1 ;;
+    p) install_packages=1 ;;
+    \? | h) echo -e "$USAGE"; exit 1 ;;
+  esac
+done
+
+neat_dir="${XDG_DATA_HOME-$HOME/.local}/neat"
+repos_dir="$neat_dir/repos"
+autobuilds_dir="$neat_dir/autobuilds"
+
+repo="$repos_dir/emacs"
+build="$autobuilds_dir/emacs"
+prefix="$HOME/.local"
+
+if [ ! -z "$build_emacs" ]; then
+  # Clone repository if does not exist
+  mkdir -p "$repos_dir"
+  [ ! -d "$repo" ] && git clone --recursive git://git.savannah.gnu.org/emacs.git "$repo"
+
+  # Copy repository to autobuilds
+  mkdir -p "$autobuilds_dir"
+  if [ ! -d "$build" ] || [ ! -z "$force" ]; then
+    rm -rf "$build"
+    cp -r "$repo" "$build"
+
+    # Preparing to build
+    # TODO: test dependencies:
+    #       json - libjasson-dev or something
+    #       png - libpng-dev
+    #       rsvg - librsvg-dev
+    cd "$build"
+    git checkout emacs-28.2
+
+    # Remove misc junk
+    #mv lisp/play/morse.el lisp/play/cookie1.el .
+    #rm -rf lisp/play/*
+    #mv morse.el cookie1.el lisp/play
+    # TODO:
+    #   Probably should remove various languages' support
+    #   like khmer.el{,c} and others
+
+    ./autogen.sh
+    mkdir -p build
+
+
+    # --without-all \
+    # Building
+    cd build
+    ../configure \
+      --prefix="$prefix" \
+      --with-json \
+      --with-mailutils \
+      --with-native-compilation \
+      --with-pgtk \
+      --with-png \
+      --with-rsvg \
+      --with-sound=no \
+      --with-tiff \
+      --with-xml2 \
+      --without-compress-install \
+      --without-m17n-flt \
+      --without-gpm \
+      --without-libotf
+    make -j"$(nproc)"
+
+    # TODO: testing
+
+    # Installing
+    mkdir -p "$prefix"
+    make install
+
+    [ -d "$HOME/.emacs.d" ] && rm -rf "$HOME/.emacs.d"
+  fi
+fi
+
+
+# Install packages
+if [ ! -z "$install_packages" ];
+then
+  [ -d "$XDG_CONFIG_HOME/emacs" ] || die "$XDG_CONFIG_HOME/emacs does not exists"
+
+  cd "$XDG_CONFIG_HOME/emacs"
+  emacs --batch -l init.el
+fi
+
