@@ -14,6 +14,9 @@ org-roam.db
 # mpd
 mpd/\.config/mpd/pid
 
+# ncmpcpp
+ncmpcpp/.config/ncmpcpp/error.log
+
 # neovim
 neovim/\.config/nvim/plugin/
 neovim/\.local/share/nvim/*
