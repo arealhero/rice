@@ -9,6 +9,7 @@ app-i18n/translate-shell
 app-misc/mc
 app-misc/neofetch
 app-misc/tmux
+app-office/libreoffice
 app-portage/cpuid2cpuflags
 app-portage/gentoolkit
 app-shells/zsh
