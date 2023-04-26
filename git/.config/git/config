@@ -1,0 +1,5 @@
+[user]
+	email = vsharshukov@gmail.com
+	name = Vladislav Sharshukov
+[init]
+	defaultBranch = master
