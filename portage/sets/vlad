@@ -36,6 +36,7 @@ media-sound/mpd
 media-sound/ncmpcpp
 media-sound/pulsemixer
 media-video/mpv
+net-analyzer/nmap
 net-im/telegram-desktop
 net-misc/chrony
 net-misc/dhcpcd
