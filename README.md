@@ -8,11 +8,11 @@ Install [`stow`](https://www.gnu.org/software/stow/) package for your
 distribution:
 - Arch linux:
   ```console
-  # pacman -S stow
+  sudo pacman -S stow
   ```
 - Gentoo:
   ```console
-  # emerge -avn app-admin/stow
+  sudo emerge -avn app-admin/stow
   ```
 
 Next, clone this repostiory. Technically you can clone it anywhere, but the
