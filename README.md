@@ -7,11 +7,11 @@ This repository contains my personal config files for some of the programs.
 Install [`stow`](https://www.gnu.org/software/stow/) package for your
 distribution:
 - Arch linux:
-  ```console
+  ```
   sudo pacman -S stow
   ```
 - Gentoo:
-  ```console
+  ```
   sudo emerge -avn app-admin/stow
   ```
 
