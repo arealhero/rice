@@ -234,10 +234,9 @@
 ;; --- Org ---
 
 (setq org-directory vlad/org-directory
-      org-agenda-files (directory-files-recursively vlad/org-directory "\\.org$")
       org-attach-use-inheritance t
       org-hide-emphasis-markers nil
-      org-startup-indented t
+      ;; org-startup-indented t
       org-confirm-babel-evaluate nil)
 
 (setq org-todo-keywords '((sequence "TODO(t)" "JOB(j)" "UNI(u)" "|" "DONE(d)" "CANCELLED(c)")))
@@ -373,11 +372,11 @@
   (org-roam-tag-add '("draft")))
 (add-hook 'org-roam-capture-new-node-hook #'vlad/tag-new-node-as-draft)
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((octave . t)
-   (C . t)
-   (python . t)))
+;; (org-babel-do-load-languages
+;;  'org-babel-load-languages
+;;  '((octave . t)
+;;    (C . t)
+;;    (python . t)))
 
 (setq org-roam-dailies-directory "daily/")
 (setq org-roam-dailies-capture-templates
