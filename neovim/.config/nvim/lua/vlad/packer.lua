@@ -5,13 +5,13 @@ return require('packer').startup(function(use)
 
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.1',
-    requires = { { 'nvim-lua/plenary.nvim' } }
+    requires = { { 'nvim-lua/plenary.nvim' } },
   }
 
   -- use 'mattn/emmet-vim'
   use {
     'windwp/nvim-autopairs',
-    config = function() require('nvim-autopairs').setup {} end
+    config = function() require('nvim-autopairs').setup {} end,
   }
 
   use 'jvirtanen/vim-octave'
