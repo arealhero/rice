@@ -6,6 +6,9 @@ xset dpms 0 0 0 &
 # xset s 300 300 &
 # xset dpms 300 300 300 &
 
+# FIXME: test if DVI-D-0 exists
+xrandr --output HDMI-0 --primary --mode 1920x1080 --right-of DVI-D-0
+
 # mpd &
 dunst &
 hsetroot -fill ~/data/pics/mountain-deers.jpg &
