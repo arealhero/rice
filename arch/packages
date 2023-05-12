@@ -1,5 +1,7 @@
 dunst
+fd
 firefox
+fzf
 gdb
 hsetroot
 mpd
@@ -8,6 +10,7 @@ neovim
 ninja
 opendoas
 redshift
+ripgrep
 stow
 tmux
 unclutter
