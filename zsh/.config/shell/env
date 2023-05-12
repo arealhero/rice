@@ -36,7 +36,7 @@ export PATH="$PATH:$HOME/.yarn/bin"
 export PATH="$PATH:/usr/sbin"
 
 # Adds `~/.local/bin` to $PATH
-local bin_dirs=$(find ${HOME}/.local/bin -type d -printf :%p)
+local bin_dirs=$(find -L ${HOME}/.local/bin -type d -printf :%p)
 export PATH="${PATH}${bin_dirs}"
 
 # $HOME cleanup
