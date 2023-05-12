@@ -1,0 +1,31 @@
+#/bin/sh
+# vim: ft=sh
+
+die()
+{
+	notify-send -t 5000 "$1"
+	exit 1
+}
+
+url="$(xclip -selection c -o)"
+tmpdir=$(mktemp -d -p /tmp zathura-open.XXXXXXXX)
+
+# NOTE:
+#    0: Shell exit
+#    2: Interrupt
+#    3: Quit
+#   15: Terminate
+trap "rm -rf $tmpdir" 0 2 3 15
+
+cd "$tmpdir"
+wget "$url" -O document
+if [ $? -eq 6 ];
+then
+	die "Error: Authorization required"
+elif [ ! $? -eq 0 ];
+then
+	die "Error: unknown error"
+fi
+
+zathura document
+

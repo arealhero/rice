@@ -1,0 +1,16 @@
+#!/bin/sh
+# Changes the ALBUM tag to the user-provided input
+# For now the script works for .flac and .mp3 files only
+
+test -z "$1"  && echo "usage: set-album <album-name>" && exit -1
+
+echo "album-name: '$1'"
+
+find . -name '*.flac' \
+	-exec metaflac --remove-first-tag=ALBUM "{}" +
+find . -name '*.flac' \
+	-exec metaflac --set-tag="ALBUM=$1" "{}" +
+
+find . -name '*.mp3' \
+	-exec mid3v2 -A "$1" "{}" +
+

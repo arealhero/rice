@@ -1,0 +1,16 @@
+#!/bin/sh
+
+filename=$1
+
+if [ -z "$filename" ]; then
+  echo "usage: fb2-to-pdf <filename>"
+  exit 1
+fi
+
+if [ ! -e "$filename" ]; then
+  echo "$filename: file not found"
+  exit 1
+fi
+
+soffice --headless --convert-to pdf "$filename"
+

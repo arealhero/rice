@@ -1,0 +1,15 @@
+#!/bin/sh
+# Changes the DATE tag to the user-provided input
+# For now the script works for .flac files only
+
+tagname="DATE"
+
+test -z "$1"  && echo "usage: set-date <date>" && exit -1
+
+echo "date: $1"
+
+find . -name '*.flac' \
+	-exec metaflac --remove-first-tag="$tagname" "{}" +
+find . -name '*.flac' \
+	-exec metaflac --set-tag="$tagname=$1" "{}" +
+

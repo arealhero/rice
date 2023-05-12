@@ -1,0 +1,16 @@
+#!/bin/sh
+
+out_file=$1
+in_file=$(mktemp concat-XXXXXXXX)
+
+for file in "${@:2}"
+do
+	echo "file '$file'" >> $in_file
+done
+
+cat $in_file
+
+ffmpeg -f concat -safe 0 -i $in_file -c copy $out_file
+
+rm $in_file
+

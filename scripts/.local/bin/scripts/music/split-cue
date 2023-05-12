@@ -1,0 +1,129 @@
+#!/bin/sh
+
+# TODO: 
+#       1. Test if gawk, metaflac, shnsplit,
+#          cuetag and iconv are installed.
+#       2. Support formats other than flac.
+#       3. Remove leading and trailing spaces
+
+set -e
+
+tracknumber=1
+
+parse_cue()
+{
+    local regex=$1
+    local matches=$(gawk "match(\$0, $regex, m) { print m[1] }" "$cuefile")
+    echo "$matches"
+}
+
+set_tag()
+{
+    local field=$1
+    local value=$2
+    local filename=$3
+
+    metaflac --remove-tag="$field" "$track"
+    metaflac --set-tag="$field=$value" "$track"
+}
+
+parse_field()
+{
+    local field="$1"
+    local filename="$2"
+    local match=$(awk "match(\$0, /$field: (.*)/, m) { print m[1] }" "$filename")
+    echo "$match"
+}
+
+confirm_fields()
+{
+    local tmp=$(mktemp split-cue.XXXXXXXX)
+
+    performer=$(parse_cue '/^PERFORMER "(.*)"/')
+    album=$(parse_cue '/^TITLE "(.*)"/')
+    date=$(parse_cue '/DATE (.*)/')
+
+    echo "# Current file: $cuefile" >> $tmp
+    echo "PERFORMER: $performer" >> $tmp
+    echo "ALBUM: $album" >> $tmp
+    echo "DATE: $date" >> $tmp
+    echo "START TRACKNUMBER: $tracknumber" >> $tmp
+
+    $EDITOR $tmp
+    if [ ! -s "$tmp" ]; then
+      echo "File is empty, aborting."
+      exit 1
+    fi
+
+    performer=$(parse_field PERFORMER $tmp)
+    album=$(parse_field ALBUM $tmp)
+    date=$(parse_field DATE $tmp)
+    tracknumber=$(parse_field TRACKNUMBER $tmp)
+
+    rm $tmp
+}
+
+confirm_encoding()
+{
+    encoding=$(file --mime-encoding "$cuefile" | awk '{ print $(NF) }')
+    read -p "Encoding [$encoding]: " encoding
+    if [ ! -z "$encoding" ] && [ "$encoding" != "UTF-8" ]
+    then
+        iconv -f $encoding -t "UTF-8" "$cuefile" --output="$cuefile"
+    fi
+}
+
+split_and_tag()
+{
+    flacfile=$(parse_cue '/^FILE "(.*)"/')
+
+    echo "splitting '$flacfile'..."
+    shnsplit -f "$cuefile" -o flac "$flacfile"
+
+    echo "tagging splitted tracks with '$cuefile'..."
+    cuetag.sh "$cuefile" split-track*
+}
+
+rename_files()
+{
+    titles=$(parse_cue '/.+TITLE "(.*)"/')
+    trackfiles=split-track*
+
+    count=1
+    for track in $trackfiles;
+    do
+        set_tag TRACKNUMBER "$tracknumber" "$track"
+        set_tag ARTIST "$performer" "$track"
+        set_tag ALBUMARTIST "$performer" "$track"
+        set_tag ALBUM "$album" "$track"
+        set_tag DATE "$date" "$track"
+
+        title=$(echo "$titles" | sed "${count}q;d" | sed 's/\///g')
+        mv -v $track "$title.flac"
+
+        tracknumber=$(( tracknumber + 1 ))
+        count=$(( count + 1 ))
+    done
+}
+
+cleanup()
+{
+    # TODO: usually there are .log files along with
+    #       the .flac and .cue, so propbably they should
+    #       also be removed as well.
+    rm -v "$flacfile" "$cuefile"
+
+    :
+}
+
+for cuefile;
+do
+    confirm_encoding
+    confirm_fields
+
+    split_and_tag
+    rename_files
+
+    cleanup
+done
+

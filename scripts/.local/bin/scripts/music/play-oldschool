@@ -1,0 +1,4 @@
+#!/bin/sh
+
+mpv --no-video --shuffle "https://invidious.namazso.eu/playlist?list=PL4G14zsHQYcUAsIcKaxxVZEPiat7JA6Cp"
+

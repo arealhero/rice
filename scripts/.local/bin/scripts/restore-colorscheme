@@ -1,0 +1,5 @@
+#!/bin/sh
+
+default_scheme="$XDG_CONFIG_HOME/colorschemes/default.xresources"
+[ -f "$default_scheme" ] && xrdb "$default_scheme"
+

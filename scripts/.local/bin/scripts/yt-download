@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# TODO: report error via notify-send
+
+# From yt-dlp man page:
+# 	Download the best video available but no better than 1080p,
+# 	or the worst video if there is no video under 1080p
+# yt-dlp -f "bv*[height<=1080]+ba/b[height<=1080] / wv*+ba/w" \
+
+link="$(xclip -selection c -o)"
+
+folder="$HOME/data/videos"
+
+if [ ! -z "$1" ];
+then
+	folder="$1"
+fi
+
+notify-send -t 5000 "yt-download" "$link: downloading started"
+yt-dlp \
+	--embed-chapters \
+	-P "$folder" \
+	-o "%(title)s.%(ext)s" \
+	"$link" || notify-send "yt-download" "$link: error occured"
+
+notify-send -t 5000 "yt-download" "$link: downloading finished"
+

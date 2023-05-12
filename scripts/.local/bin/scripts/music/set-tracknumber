@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+
+tracknumber="$1"
+track="$2"
+
+if [ -z "$tracknumber" ] || [ -z "$track" ];
+then
+	echo "usage: set-tracknumber <tracknumber> <track>"
+	exit 1
+fi
+
+metaflac --remove-tag="TRACKNUMBER" "$track"
+metaflac --set-tag="TRACKNUMBER=$tracknumber" "$track"
+

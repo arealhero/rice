@@ -1,0 +1,15 @@
+#!/bin/sh
+
+cd "$HOME/src/notes"
+
+if [ -z "$1" ]; then
+	title="$(date '+%F')"
+else
+	title="$1"
+fi
+
+[ ! -f "$title.md" ] && echo "# $title\n" > "$title.md"
+echo "### $(date '+%R')\n" >> "$title.md"
+
+$EDITOR "$title.md" +
+

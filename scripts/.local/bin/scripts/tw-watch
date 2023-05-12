@@ -1,0 +1,34 @@
+#/bin/sh
+# vim: ft=sh
+
+# Watch twitch with mpv!
+
+report_error()
+{
+	local message=$1
+	notify-send -u critical "$message"
+}
+
+has_substring()
+{
+	local str=$1
+	local pattern=$2
+	[ -z "${str##*$pattern*}" ]
+}
+
+[ -z $1 ] \
+	&& report_error "You should provide a twitch streamer's name!" \
+	&& exit -1
+
+streamer=$1
+
+output=$(mpv "https://twitch.tv/$streamer")
+
+[[ $output =~ "offline" ]] \
+	&& report_error "$streamer is offline" \
+	&& exit -1
+
+[[ $output =~ "$streamer does not exist" ]] \
+	&& report_error "$streamer does not exist" \
+	&& exit -1
+

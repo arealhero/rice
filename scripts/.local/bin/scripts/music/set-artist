@@ -1,0 +1,18 @@
+#!/bin/sh
+# Changes the ALBUM tag to the user-provided input
+# For now the script works for .flac files only
+test -z "$1"  && echo "usage: set-artist <artist>" && exit -1
+
+echo "artist: $1"
+
+find . -name '*.flac' \
+	-exec metaflac --remove-first-tag=ARTIST "{}" +
+find . -name '*.flac' \
+	-exec metaflac --remove-first-tag=ALBUMARTIST "{}" +
+
+find . -name '*.flac' \
+	-exec metaflac --set-tag="ARTIST=$1" "{}" +
+find . -name '*.flac' \
+	-exec metaflac --set-tag="ALBUMARTIST=$1" "{}" +
+
+

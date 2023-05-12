@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -e
+
+count=32
+[ ! -z "$1" ] && count="$1"
+
+cat /dev/urandom | tr -dc A-Za-z0-9 | head -c "$count" | xclip -in
+echo "Password generated & copied to the clipboard"
+

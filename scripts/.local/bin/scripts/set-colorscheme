@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+schemes_dir="$XDG_CONFIG_HOME/colorschemes"
+
+cd "$schemes_dir"
+scheme=$(ls *.xresources | sed 's/.xresources//' | fzf)
+
+ln -sf "$scheme.xresources" default.xresources
+xrdb default.xresources
+pidof st | xargs kill -s USR1
+echo "$scheme was set"
+
