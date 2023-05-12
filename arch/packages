@@ -1,5 +1,7 @@
+dunst
 firefox
 gdb
+hsetroot
 mpd
 ncmpcpp
 neovim
@@ -8,4 +10,9 @@ opendoas
 redshift
 stow
 tmux
+unclutter
+xcompmgr
+xorg-xbacklight
+xorg-xinit
+xorg-xset
 zsh
