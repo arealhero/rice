@@ -17,6 +17,7 @@ ncmpcpp
 neofetch
 neovim
 ninja
+nodejs
 octave
 opendoas
 pass
@@ -38,6 +39,7 @@ xorg-xrandr
 xorg-xrdb
 xorg-xset
 xorg-xsetroot
+yarn
 yt-dlp
 zathura
 zathura-djvu
