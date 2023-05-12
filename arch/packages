@@ -19,4 +19,5 @@ xcompmgr
 xorg-xbacklight
 xorg-xinit
 xorg-xset
+xorg-xsetroot
 zsh
