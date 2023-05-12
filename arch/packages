@@ -22,4 +22,7 @@ xorg-xbacklight
 xorg-xinit
 xorg-xset
 xorg-xsetroot
+zathura
+zathura-djvu
+zathura-pdf-poppler
 zsh
