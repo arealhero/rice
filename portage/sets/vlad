@@ -1,5 +1,6 @@
 app-admin/doas
 app-admin/pass
+app-admin/pass-otp
 app-admin/stow
 app-admin/sysklogd
 app-arch/unrar
