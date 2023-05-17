@@ -63,6 +63,7 @@ www-client/links
 x11-apps/gromit-mpx
 x11-apps/mesa-progs
 x11-apps/setxkbmap
+x11-apps/xev
 x11-apps/xrandr
 x11-apps/xset
 x11-base/xorg-server

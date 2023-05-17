@@ -35,6 +35,7 @@ wmname
 xclip
 xcompmgr
 xorg-xbacklight
+xorg-xev
 xorg-xinit
 xorg-xrandr
 xorg-xrdb
