@@ -1,0 +1,14 @@
+#!/bin/sh
+
+args=$@
+
+if [ -z "$args" ];
+then
+  echo "usage: volume_control <args>"
+  exit -1
+fi
+
+# amixer set Master "$cmd"
+pulsemixer $args
+pkill -RTMIN+11 dwmblocks
+
