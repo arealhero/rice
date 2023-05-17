@@ -39,10 +39,14 @@ alias \
 	pacman="pacman --color=auto" \
 	yay="yay --color=auto"
 
-# Folders
+# Git
 alias \
-	c="cd ~/.config && ls" \
-	gnc="cd $XDG_CONFIG_HOME/nvim && nvim ."
+  ga="git add" \
+  gap="git add -p" \
+  gc="git commit" \
+  gd="git diff" \
+  gds="git diff --staged" \
+  gs="git status"
 
 # $HOME cleanup
 alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
