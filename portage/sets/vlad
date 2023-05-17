@@ -73,5 +73,6 @@ x11-misc/redshift
 x11-misc/slock
 x11-misc/tabbed
 x11-misc/unclutter-xfixes
+x11-misc/wmname
 x11-misc/xclip
 x11-misc/xcompmgr
