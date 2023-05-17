@@ -9,6 +9,11 @@ xset dpms 0 0 0 &
 # FIXME: test if DVI-D-0 exists
 xrandr --output HDMI-0 --primary --mode 1920x1080 --right-of DVI-D-0
 
+if command -v pulsemixer;
+then
+  pulsemixer --max-volume 100
+fi
+
 # mpd &
 dunst &
 hsetroot -fill ~/data/pics/mountain-deers.jpg &
