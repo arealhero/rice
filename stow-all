@@ -1,0 +1,18 @@
+#!/bin/sh
+
+stow \
+  emacs \
+  fonts \
+  gdb \
+  git \
+  gromit-mpx \
+  mpd \
+  ncmpcpp \
+  neovim \
+  python \
+  redshift \
+  scripts \
+  tmux \
+  xorg \
+  zsh
+
