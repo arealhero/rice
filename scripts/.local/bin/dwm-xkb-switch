@@ -1,16 +1,12 @@
 #!/usr/bin/env zsh
 
-layouts=(us ru)
+layouts=(us ru,us)
 
 total_layouts="${#layouts}"
 current_layout=$(setxkbmap -query | awk '/layout:/{ print $2 }')
 current_index="${layouts[(i)$current_layout]}"
 next_index="$((current_index % total_layouts + 1))"
 next_layout="${layouts[$next_index]}"
-
-echo "$layouts"
-echo "$current_layout"
-echo "$next_layout"
 
 setxkbmap "$next_layout"
 pkill -RTMIN+10 dwmblocks

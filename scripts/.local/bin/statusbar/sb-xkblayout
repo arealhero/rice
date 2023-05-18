@@ -1,4 +1,4 @@
 #!/bin/sh
 
-setxkbmap -query | awk '/^layout:/ { print $2 }'
+setxkbmap -query | awk -F' *|,' '/^layout:/ { print $2 }'
 
