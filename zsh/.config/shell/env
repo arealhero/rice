@@ -1,8 +1,8 @@
 #!/bin/sh
 
-export EDITOR="vim"
+export EDITOR="nvim"
 export TERMINAL="st"
-export BROWSER="firefox"
+export BROWSER="librewolf"
 
 # XDG
 export XDG_STATE_HOME="$HOME/.local/state"
