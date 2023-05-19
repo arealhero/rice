@@ -13,6 +13,8 @@ map л scroll up
 map <C-в> scroll half-down
 map <C-г> scroll half-up
 
+map <C-т> toggle_statusbar
+
 map Л zoom in
 map О zoom out
 
