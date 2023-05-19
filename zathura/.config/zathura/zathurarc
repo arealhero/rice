@@ -1,0 +1,20 @@
+map K zoom in
+map J zoom out
+
+map p print
+
+# --- Non-latin layouts support ---
+
+map о scroll down
+map л scroll up
+
+map <C-в> scroll half-down
+map <C-г> scroll half-up
+
+map Л zoom in
+map О zoom out
+
+map з print
+
+map й quit
+
