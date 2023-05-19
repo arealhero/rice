@@ -22,6 +22,6 @@ load-config "vi-mode"
 load-config "history"
 load-config "colors"
 
-setopt autocd
+# setopt autocd
 stty stop undef 	# Disable <C-s> to freeze terminal
 
