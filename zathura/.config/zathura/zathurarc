@@ -1,3 +1,5 @@
+set guioptions none
+
 map K zoom in
 map J zoom out
 
