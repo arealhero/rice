@@ -39,6 +39,10 @@ alias \
 	pacman="pacman --color=auto" \
 	yay="yay --color=auto"
 
+# Start quietly
+alias \
+  newsboat="newsboat -q"
+
 # Git
 alias \
   ga="git add" \
