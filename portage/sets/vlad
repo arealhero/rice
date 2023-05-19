@@ -42,6 +42,7 @@ net-im/telegram-desktop
 net-misc/chrony
 net-misc/dhcpcd
 net-misc/yt-dlp
+net-news/newsboat
 net-p2p/qbittorrent
 sci-mathematics/octave
 sci-visualization/gnuplot
