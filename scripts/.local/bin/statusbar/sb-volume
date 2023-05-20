@@ -1,7 +1,14 @@
 #!/bin/sh
 
 volume=$(awk -F"[][]" '/Left:/ { print $2 }' <(amixer sget Master))
-is_muted=$(awk -F"[][]" '/Left:/ { print $4 == "off" ? "M " : "" }' <(amixer sget Master))
+
+if [ -z "$volume" ];
+then
+  volume=$(awk -F"[][]" '/Mono:/ { print $2 }' <(amixer sget Master))
+  is_muted=$(awk -F"[][]" '/Mono:/ { print $4 == "off" ? "M " : "" }' <(amixer sget Master))
+else
+  is_muted=$(awk -F"[][]" '/Left:/ { print $4 == "off" ? "M " : "" }' <(amixer sget Master))
+fi
 
 echo "$is_muted$volume"
 
