@@ -21,7 +21,7 @@ easiest way is to put it in `$HOME` directory:
 cd $HOME && git clone git@github.com:arealhero/rice.git
 ```
 
-Now you can use `stow` to create folders & symlinks for you:
+Now you can use `stow` to create folders & symlinks:
 ```
 cd rice && stow <package>
 ```
