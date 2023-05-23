@@ -10,6 +10,12 @@ map p print
 map о scroll down
 map л scroll up
 
+map пп goto top
+map П goto bottom
+
+map <C-ш> jumplist forward
+map <C-щ> jumplist backward
+
 map <C-в> scroll half-down
 map <C-г> scroll half-up
 
