@@ -1,0 +1,13 @@
+#!/bin/sh
+
+input="$1"
+output="$2"
+
+if [ -z "$input" ] || [ -z "$output" ];
+then
+  echo "usage: djvu2pdf <input> <output>"
+  exit 1
+fi
+
+djvups "$input" | ps2pdf - "$output"
+
