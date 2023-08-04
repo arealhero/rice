@@ -1,0 +1,4 @@
+#!/bin/sh
+
+mpv --no-video "https://www.youtube.com/watch?v=jfKfPfyJRdk"
+

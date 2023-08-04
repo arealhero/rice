@@ -12,6 +12,7 @@ app-admin/doas persist
 
 # xorg
 >=sys-auth/pambase-20220214 elogind
+>=x11-libs/wxGTK-3.0.5.1-r1:3.0-gtk3 webkit
 
 # Telegram
 >=media-video/ffmpeg-4.4.3 opus vpx

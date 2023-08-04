@@ -1,0 +1,3 @@
+sci-mathematics/maxima gui
+>=sci-visualization/gnuplot-5.4.4 wxwidgets
+

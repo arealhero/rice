@@ -2,5 +2,5 @@
 
 set -e
 
-doas pacman -S --needed $(cat arch/packages)
+yay -S --needed $(cat arch/packages)
 

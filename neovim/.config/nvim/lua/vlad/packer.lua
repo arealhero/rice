@@ -8,7 +8,8 @@ return require('packer').startup(function(use)
     requires = { { 'nvim-lua/plenary.nvim' } },
   }
 
-  -- use 'mattn/emmet-vim'
+  use 'mattn/emmet-vim'
+
   use {
     'windwp/nvim-autopairs',
     config = function() require('nvim-autopairs').setup {} end,
@@ -27,7 +28,12 @@ return require('packer').startup(function(use)
 
   use 'ellisonleao/gruvbox.nvim'
 
-  use 'neovim/nvim-lspconfig'
+  use {
+    'neoclide/coc.nvim',
+    run = 'yarn install --frozen-lockfile',
+  }
+
+  -- use 'neovim/nvim-lspconfig'
   -- use {
   --   'VonHeikemen/lsp-zero.nvim',
   --   branch = 'v1.x',

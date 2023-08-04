@@ -30,6 +30,8 @@ export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch"
 export PASSWORD_STORE_DIR="$XDG_DATA_DIR/pass"
 
 # $PATH population
+export DENO_INSTALL="/home/vlad/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
 export GOPATH="$XDG_DATA_HOME"/go
 export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$HOME/.yarn/bin"
@@ -50,11 +52,13 @@ export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"
 export INPUTRC="$XDG_CONFIG_HOME/shell/inputrc"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
+export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/ripgrep/ripgreprc"
+
 # Rust
 export PATH="$PATH:$HOME/.cargo/bin"
 
 export STARDICT_DATA_DIR="$XDG_DATA_HOME"
 
-# Why Next.js
+# Why, Next.js?
 export NEXT_TELEMETRY_DISABLED=1
 

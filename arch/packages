@@ -2,7 +2,6 @@ clang
 cmake
 dunst
 fd
-firefox
 flac
 fzf
 gdb
@@ -10,6 +9,7 @@ hsetroot
 imagemagick
 libnotify
 libreoffice-fresh
+librewolf-bin
 maim
 mpd
 mpv
@@ -19,6 +19,8 @@ neovim
 newsboat
 ninja
 nodejs
+nodejs-http-server
+noto-fonts
 octave
 opendoas
 pass
@@ -29,8 +31,17 @@ redshift
 ripgrep
 slock
 stow
+telegram-desktop
 tmux
 tree
+ttf-anonymous-pro
+ttf-dejavu
+ttf-firacode-nerd
+ttf-inconsolata
+ttf-liberation
+ttf-opensans
+ttf-roboto
+ttf-roboto-mono
 unclutter
 wmname
 xclip
@@ -47,4 +58,5 @@ yt-dlp
 zathura
 zathura-djvu
 zathura-pdf-poppler
+zotero-bin
 zsh

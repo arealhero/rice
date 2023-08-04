@@ -1,13 +1,21 @@
 #!/bin/sh
 
-volume=$(awk -F"[][]" '/Left:/ { print $2 }' <(amixer sget Master))
+is_pulse=1
+
+if [ $is_pulse ]; then
+  output=$(amixer -D pulse sget Master)
+else
+  output=$(amixer sget Master)
+fi
+
+volume=$(echo $output | awk -F"[][]" '/Left:/ { print $2 }')
 
 if [ -z "$volume" ];
 then
-  volume=$(awk -F"[][]" '/Mono:/ { print $2 }' <(amixer sget Master))
-  is_muted=$(awk -F"[][]" '/Mono:/ { print $4 == "off" ? "M " : "" }' <(amixer sget Master))
+  volume=$(echo $output | awk -F"[][]" '/Mono:/ { print $2 }')
+  is_muted=$(echo $output | awk -F"[][]" '/Mono:/ { print $4 == "off" ? "M " : "" }')
 else
-  is_muted=$(awk -F"[][]" '/Left:/ { print $4 == "off" ? "M " : "" }' <(amixer sget Master))
+  is_muted=$(echo $output | awk -F"[][]" '/Left:/ { print $4 == "off" ? "M " : "" }')
 fi
 
 echo "$is_muted$volume"
