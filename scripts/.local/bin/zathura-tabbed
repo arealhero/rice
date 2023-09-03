@@ -1,0 +1,21 @@
+#!/bin/sh
+
+xid_dir="$XDG_STATE_HOME/zathura-tabbed"
+xid_file="$xid_dir/xid"
+
+if [ ! -d "$xid_dir" ]; then
+  mkdir "$xid_dir"
+fi
+
+if [ ! -f "$xid_file" ]; then
+  tabbed -c -d > "$xid_file"
+else
+  xprop -id $(cat "$xid_file")
+  if [ ! $? -eq 0 ]; then
+    tabbed -c -d > "$xid_file"
+  fi
+fi
+
+xid=$(cat "$xid_file")
+zathura -e "$xid" $@
+
