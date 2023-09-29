@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Personal information
 (setq user-full-name "Vladislav Sharshukov"
       user-mail-address "vsharshukov@gmail.com")
@@ -6,20 +8,20 @@
 
 (defconst vlad/home-directory (getenv "HOME"))
 (defconst vlad/source-directory (expand-file-name "src" vlad/home-directory))
-(defconst vlad/org-directory (expand-file-name "www/sharshukov.xyz" vlad/source-directory))
+(defconst vlad/org-directory (expand-file-name "data/org" vlad/home-directory))
 
 (defconst vlad/bibliography-file (expand-file-name "references.bib" vlad/org-directory))
-
-;; (defconst xdg/data-dir (getenv "XDG_DATA_DIR")) ;; TODO: this is not XDG's
-;; (defconst vlad/org-directory (expand-file-name "org" xdg/data-dir))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; --- Theme ---
+(set-frame-font "Fira Code 13" nil t)
 
-(set-frame-font "Fira Code 11" nil t)
-(load-theme 'modus-operandi)
-;; (load-theme 'modus-vivendi)
+(use-package gruvbox-theme
+  :ensure t
+  :init
+  (load-theme 'gruvbox-dark-hard t)
+  )
 
 ;; (global-display-line-numbers-mode 1)
 ;; See https://libreddit.tiekoetter.com/r/emacs/comments/8pfdlb/weird_shifting_problem_with_new_emacs_line_numbers/
@@ -29,9 +31,6 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 (setq standard-indent 2)
-
-(use-package writeroom-mode
-  :ensure t)
 
 (use-package diminish
   :ensure t)
@@ -48,7 +47,7 @@
   (general-nmap
     :prefix "SPC"
 
-    "SPC" 'org-roam-node-find
+    "SPC" 'projectile-find-file
 
     "dy" 'org-roam-dailies-goto-yesterday
     "dt" 'org-roam-dailies-goto-today
@@ -64,6 +63,7 @@
     "hv" 'describe-variable
 
     "kb" 'kill-buffer
+    "kw" 'delete-window
 
     "nc" 'org-roam-capture
     "nf" 'org-roam-node-find
@@ -73,20 +73,16 @@
 
     "oa" 'org-agenda
     "oc" 'vlad/open-config
-    "op" 'vlad/open-plan
 
-    ;; Reference Open
-    "ro" 'citar-open
+    "ps" 'projectile-switch-project
+    "pf" 'projectile-ripgrep
 
-    "st" 'vlad/display-current-time
+    "sb" 'ivy-switch-buffer
 
     "vs" 'load-theme
     "vtt" 'vlad/toggle-transparency
 
-    "ua" 'vlad/refresh-org-agenda-files
-
-    "zt" 'writeroom-toggle-mode-line
-    "zz" 'writeroom-mode)
+    "ua" 'vlad/refresh-org-agenda-files)
 
   (general-def 'normal
     "C-S-j" 'vlad/font-dec
@@ -95,10 +91,12 @@
     "C-Л" 'vlad/font-inc)
 
   (general-def 'insert
-    "C-ц" 'evil-delete-backward-word)
+    "C-ц" 'evil-delete-backward-word
+    "C-т" 'evil-complete-next
+    "C-з" 'evil-complete-previous)
 
-  (general-def 'normal org-mode-map
-    "TAB" 'org-cycle)
+  (general-def 'insert org-mode-map
+    "C-M-<return>" 'org-insert-todo-heading)
 
   (general-nmap org-mode-map
     :prefix "SPC"
@@ -106,8 +104,6 @@
     "aa" 'org-attach-attach
 
     "c" 'org-ctrl-c-ctrl-c
-
-    "ic" 'citar-insert-citation
 
     "lt" 'vlad/set-creation-time-heading-property
 
@@ -129,9 +125,31 @@
 (use-package evil
   :ensure t
   :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
   (setq evil-want-C-u-scroll t)
   :config
   (evil-mode))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
+
+;; --- LSP ---
+(use-package lsp-mode
+  :ensure t)
+
+(use-package yasnippet
+  :ensure t
+  )
+
+;; --- Tree sitter ---
+(setq treesit-language-source-alist
+      '((elisp "https://github.com/Wilfred/tree-sitter-elisp")
+        (css "https://github.com/tree-sitter/tree-sitter-css")
+        (json "https://github.com/tree-sitter/tree-sitter-json")))
 
 ;; --- git ---
 (use-package magit
@@ -184,45 +202,19 @@
   (global-undo-tree-mode)
   (evil-set-undo-system 'undo-tree))
 
-(use-package vertico
+(use-package ivy
   :ensure t
   :init
-  (vertico-mode)
+  (setq ivy-initial-inputs-alist nil)
+  :config
+  (ivy-mode)
   )
 
-(use-package orderless
-  :after vertico
+(use-package counsel
+  :after ivy
   :ensure t
-  :init
-
-  (setq orderless-matching-styles '(orderless-flex))
-
-  (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion)))
-        )
-  )
-
-(use-package marginalia
-  :after vertico
-  :ensure t
-  :init
-  (marginalia-mode)
-  )
-
-(use-package citar
-  :ensure t
-  :custom
-  (citar-bibliography (list vlad/bibliography-file))
-  (citar-notes-paths '((expand-file-name "references" vlad/org-directory)))
-  ;; (citar-notes-paths '("~/data/org/roam/references"))
-
-  ;; FIXME: set this after citer is installed & org is required
-
-  (org-cite-global-bibliography (list vlad/bibliography-file))
-  (org-cite-insert-processor 'citar)
-  (org-cite-follow-processor 'citar)
-  (org-cite-activate-processor 'citar)
+  :config
+  (global-set-key (kbd "M-x") 'counsel-M-x)
   )
 
 (use-package evil-commentary
@@ -250,49 +242,14 @@
 
 (vlad/refresh-org-agenda-files)
 
-;; Just messing around with KaTeX. AFAIK it is significantly
-;; faster than MathJax, but lacks some functionality.
-(setq org-html-mathjax-template
-      (with-temp-buffer
-        (insert-file-contents (expand-file-name "katex.html" user-emacs-directory))
-        (buffer-string)))
-
 (require 'org)
-;; (setq org-preview-latex-default-process 'dvisvgm)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.8))
-
-(add-hook 'org-mode-hook
-          #'(lambda ()
-              (delete '("\\.pdf\\'" . default) org-file-apps)
-              (delete '("\\.djvu\\'" . default) org-file-apps)
-              (add-to-list 'org-file-apps '("\\.pdf\\'" . "sioyek %s"))
-              (add-to-list 'org-file-apps '("\\.djvu\\'" . "zathura %s"))
-
-              (delete '("\\.webm\\'" . default) org-file-apps)
-              (delete '("\\.mkv\\'" . default) org-file-apps)
-              (add-to-list 'org-file-apps '("\\.webm\\'" . "mpv --speed=1.75 --fs %s"))
-              (add-to-list 'org-file-apps '("\\.mkv\\'" . "mpv --speed=1.75 --fs %s"))))
-
-(add-hook 'org-mode-hook 'turn-on-auto-fill)
-
-;; beamer support in org-mode
-(eval-after-load "ox-latex"
-  '(add-to-list 'org-latex-classes
-                `("beamer"
-                  ,(concat "\\documentclass[presentation]{beamer}\n"
-                           "[DEFAULT-PACKAGES]"
-                           "[PACKAGES]"
-                           "[EXTRA]\n")
-                  ("\\section{%s}" . "\\section*{%s}")
-                  ("\\subsection{%s}" . "\\subsection*{%s}")
-                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
 
 (use-package org-roam
   :ensure t
 
   :custom
   (org-roam-directory vlad/org-directory)
-  ;; (org-roam-directory (expand-file-name "roam" vlad/org-directory))
 
   :config
   (cl-defmethod org-roam-node-type ((node org-roam-node))
@@ -318,15 +275,6 @@
          :immediate-finish t
          :unnarrowed t)
 
-        ("r" "reference" plain "%?"
-         :if-new
-         (file+head "references/${citar-citekey}.org"
-                    ":PROPERTIES:\n:CATEGORY: ${citar-citekey}\n:END:\n#+TITLE: ${note-title}\n#+CREATED: %U\n#+FILETAGS: :reference:\n")
-         ;; (file+head "references/%<%Y%m%d%H%M%S>-${slug}.org"
-         ;;            ":PROPERTIES:\n:CATEGORY: ${citar-citekey}\n:END:\n#+TITLE: ${citar-citekey} ${note-title}\n#+CREATED: %U\n#+FILETAGS: :reference:\n")
-         :immediate-finish t
-         :unnarrowed t)
-
         ("p" "personal" plain "%?"
          :if-new
          (file+head "personal/%<%Y%m%d%H%M%S>-${slug}.org"
@@ -334,24 +282,10 @@
          :immediate-finish t
          :unnarrowed t)
 
-        ("h" "people" plain "%?"
+        ("y" "yandex" plain "%?"
          :if-new
-         (file+head "personal/people/%<%Y%m%d%H%M%S>-${slug}.org"
-                    ":PROPERTIES:\n:CATEGORY: ${title}\n:END:\n#+TITLE: ${title}\n#+CREATED: %U\n#+FILETAGS: :personal:people:\n")
-         :immediate-finish t
-         :unnarrowed t)
-
-        ("u" "uni" plain "%?"
-         :if-new
-         (file+head "uni/${slug}.org"
-                    ":PROPERTIES:\n:CATEGORY: ${title}\n:END:\n#+TITLE: ${title}\n#+CREATED: %U\n#+FILETAGS: :uni:\n")
-         :immediate-finish t
-         :unnarrowed t)
-
-        ("a" "article" plain "%?"
-         :if-new
-         (file+head "articles/%<%Y%m%d%H%M%S>-${slug}.org"
-                    ":PROPERTIES:\n:CATEGORY: ${title}\n:END:\n#+TITLE: ${title}\n#+CREATED: %U\n#+FILETAGS: :article:\n")
+         (file+head "yandex/%<%Y%m%d%H%M%S>-${slug}.org"
+                    ":PROPERTIES:\n:CATEGORY: Yandex - ${title}\n:END:\n#+TITLE: Yandex - ${title}\n#+CREATED: %U\n#+FILETAGS: :yandex:nda:\n")
          :immediate-finish t
          :unnarrowed t)
         ))
@@ -372,12 +306,6 @@
   (org-roam-tag-add '("draft")))
 (add-hook 'org-roam-capture-new-node-hook #'vlad/tag-new-node-as-draft)
 
-;; (org-babel-do-load-languages
-;;  'org-babel-load-languages
-;;  '((octave . t)
-;;    (C . t)
-;;    (python . t)))
-
 (setq org-roam-dailies-directory "daily/")
 (setq org-roam-dailies-capture-templates
       `(("d" "default" entry
@@ -385,38 +313,28 @@
          :target (file+head "%<%Y-%m-%d>.org"
                             "#+title: %<%Y-%m-%d>\n"))))
 
-(use-package citar-org-roam
-  :after (citar org-roam)
+;; --- Projectile ---
+(use-package projectile
   :ensure t
   :diminish
   :config
+  (projectile-mode))
 
-  (citar-org-roam-mode)
-  (setq citar-org-roam-note-title-template "${author:%sn} - ${title}"
-        citar-org-roam-capture-template-key "r")
-
-  (setq citar-org-roam-template-fields
-        '((:citar-title "title")
-          (:citar-author "author" "editor")
-          (:citar-date "date" "year" "issued")
-          (:citar-pages "pages")
-          (:citar-type "=type="))
-        )
-
-
-  (add-to-list 'citar-file-open-functions
-               '("pdf" . citar-file-open-external))
-  (add-to-list 'citar-file-open-functions
-               '("djvu" . citar-file-open-external))
+(use-package projectile-ripgrep
+  :after projectile
+  :ensure t
+  :diminish
+  :init
+  (setq ripgrep-arguments `("--hidden"))
   )
 
-(use-package embark
-  :ensure t)
-
-(use-package citar-embark
-  :after citar embark
+;; --- Web dev ---
+(use-package emmet-mode
   :ensure t
   :diminish
-  :config
+  :hook
+  (html-mode . emmet-mode))
 
-  (citar-embark-mode))
+;; --- Programming languages ---
+(use-package json-mode
+  :ensure t)

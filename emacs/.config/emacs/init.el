@@ -4,6 +4,9 @@
   (scroll-bar-mode -1)
   (tooltip-mode -1))
 
+(setq visible-bell nil
+      ring-bell-function 'ignore)
+
 (setq inhibit-startup-message t
       initial-scratch-message "")
 
@@ -12,6 +15,7 @@
   (message ""))
 
 (blink-cursor-mode -1)
+(display-time)
 
 ;; Set up package
 (require 'package)

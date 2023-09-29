@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Integral
+# key: int
+# group: html-mode
+# --
+
+\int\limits_{$1}^{$2} $0

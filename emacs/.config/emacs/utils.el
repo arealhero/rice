@@ -1,7 +1,3 @@
-(defun vlad/display-current-time ()
-  (interactive)
-  (message (format-time-string "%Y-%m-%d %H:%M:%S")))
-
 (defun vlad/open-file (filename directory)
   (find-file (expand-file-name filename directory)))
 
@@ -13,14 +9,6 @@
 
 (defun vlad/open-config-file (filename)
   (vlad/open-file filename user-emacs-directory))
-
-(defun vlad/open-plan ()
-  (interactive)
-  (vlad/open-personal-file "plan.org"))
-
-(defun vlad/open-todo ()
-  (interactive)
-  (vlad/open-personal-file "todo.org"))
 
 (defun vlad/open-config ()
   ;; TODO: test if file exists
